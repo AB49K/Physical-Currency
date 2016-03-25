@@ -14,8 +14,10 @@ There will be 3 commands that admins can use
 
 The API allows 3 calls/functions.
 
-##TakeCurrency - This will allow a plugin or admin to remove currency from a players inventory.
- TakeCurrency has a few return codes.
+##TakeCurrency 
+
+This will allow a plugin or admin to remove currency from a players inventory.
+TakeCurrency has a few return codes.
 
 10: Success - The player had enough currency in their inventory and it's been removed from their inventory.
 
@@ -25,10 +27,12 @@ The API allows 3 calls/functions.
 
 Example:
 
-###result = cPluginManager:CallPlugin("PhysicalCurrency", "TakeCurrency", "AB49K", "10")
+######result = cPluginManager:CallPlugin("PhysicalCurrency", "TakeCurrency", "AB49K", "10")
 
 
-##GiveCurrency - This will add currency to the players inventory
+##GiveCurrency 
+
+This will add currency to the players inventory
 
 GiveCurrency has a maximum give count of 640 - this is to stop server lag if an admin or plugin sends over 100K emeralds to one person
 
@@ -39,7 +43,7 @@ GiveCurrency has 2 return codes
 
 Example:
 
-###result = cPluginManager:CallPlugin("PhysicalCurrency", "GiveCurrency", "AB49K", "10")
+######result = cPluginManager:CallPlugin("PhysicalCurrency", "GiveCurrency", "AB49K", "10")
 
 
 ##Balance
@@ -48,6 +52,6 @@ This will return the amount of currency in the players inventory.
 
 Example:
 
-###result = cPluginManager:CallPlugin("PhysicalCurrency", "Balance", "AB49K")
+######result = cPluginManager:CallPlugin("PhysicalCurrency", "Balance", "AB49K")
 
 
