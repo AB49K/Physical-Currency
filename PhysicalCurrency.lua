@@ -8,10 +8,14 @@ PLUGIN = nil
 function Initialize(Plugin)
 	Plugin:SetName("PhysicalCurrency")
 	CurrencyItem = cItem(E_ITEM_EMERALD);
-	Plugin:SetVersion(1)
+	Plugin:SetVersion(2)
 	PLUGIN = Plugin 
+	dofile(cPluginManager:GetPluginsPath() .. "/InfoReg.lua");
+
+	--Bind all the commands:
+	RegisterPluginInfoCommands();
 	--dofile(cPluginManager:GetPluginsPath() .. "/" .. Plugin:GetName() .. "/Plugin_info.lua") --This will be fixed soon.
-	cPluginManager.BindCommand("/currency", "Physical.admin", CurrencyCommand, " ~ Takes a certain amount of Currency from the Player")
+	--cPluginManager.BindCommand("/currency", "Physical.admin", CurrencyCommand, " Allows administration of the Physical-Currency plugin")
 	LOG("Initialised " .. Plugin:GetName() .. " v." .. Plugin:GetVersion())
 	return true
 end
@@ -29,12 +33,17 @@ function CurrencyCommand(Split, Player)
 		Player:SendMessage("Balance for ".. Split[3] ..": " .. balance)
 		return true
 	end
-		
+	
 	if (#Split ~= 4) then
 		Player:SendMessage("Usage: /currency <give:take:balance> <user> [amount to give or take]")
 		return true			
-		
-	elseif Split[2] == 'take' then
+		end
+	if type(tonumber(Split[4])) ~= 'number' then
+			Player:SendMessage("Usage: /currency <give:take:balance> <user> [amount to give or take]")
+			return true
+			end
+
+	if Split[2] == 'take' then
 		TargetPlayer=GetPlayer(Split[3])
 		if TargetPlayer ~= nil then
 			result=TakeCurrency(Split[3], Split[4])
