@@ -11,11 +11,7 @@ function Initialize(Plugin)
 	Plugin:SetVersion(2)
 	PLUGIN = Plugin 
 	dofile(cPluginManager:GetPluginsPath() .. "/InfoReg.lua");
-
-	--Bind all the commands:
 	RegisterPluginInfoCommands();
-	--dofile(cPluginManager:GetPluginsPath() .. "/" .. Plugin:GetName() .. "/Plugin_info.lua") --This will be fixed soon.
-	--cPluginManager.BindCommand("/currency", "Physical.admin", CurrencyCommand, " Allows administration of the Physical-Currency plugin")
 	LOG("Initialised " .. Plugin:GetName() .. " v." .. Plugin:GetVersion())
 	return true
 end
@@ -26,11 +22,16 @@ end
 				
 function CurrencyCommand(Split, Player)
 	if Split[2] == 'balance' then
-		balance = GetBalance(Split[3])
-		if balance == nil then
-			Player:SendMessage("No Player ".. Split[3] .." found")
+		if (#Split == 2) then
+			target=Player:GetName()
+		else
+			target=Split[3]
 			end
-		Player:SendMessage("Balance for ".. Split[3] ..": " .. balance)
+		balance = GetBalance(target)
+		if balance == nil then
+			Player:SendMessage("No Player ".. target .." found")
+			end
+		Player:SendMessage("Balance for ".. target ..": " .. balance)
 		return true
 	end
 	
